@@ -1,0 +1,11 @@
+.character {
+	width: 100px;
+}
+
+.hero {
+	border: 2px solid green;
+}
+
+.enemy {
+	border: 2px solid red;
+}
