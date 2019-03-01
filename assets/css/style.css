@@ -1,11 +1,12 @@
-.character {
+img {
 	width: 100px;
+	margin: 5px 5px 5px 0;
 }
 
-.hero {
-	border: 2px solid green;
+#selected img {
+	border: 5px solid green;
 }
 
-.enemy {
-	border: 2px solid red;
+#enemy img {
+	border: 5px solid red;
 }

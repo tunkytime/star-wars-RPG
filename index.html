@@ -7,32 +7,56 @@
 	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
 	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 	
 	<link rel="stylesheet" href="assets/css/style.css">
-
 	<title>RPG</title>
 </head>
 
 <body>
 
-	<div class="container">
-		<img src="" class="character" id="character1">
-		<img src="" class="character" id="character2">
-		<img src="" class="character" id="character3">
-		<img src="" class="character" id="character4">
+<div class="container">
+
+	
+	<div class="row">
+		<div class="col-12">
+		
+			<div class="row">
+				<div>
+					<img src="assets/images/obiwan.jpg" id="character1" class="character">
+					<img src="assets/images/luke.jpg" id="character2" class="character">
+					<img src="assets/images/darthvader.jpg" id="character3" class="character">
+					<img src="assets/images/kylo.jpg" id="character4" class="character">
+				</div>
+			</div>
+		
+			<div class="row">
+				<div id="selected">
+					<h2>Your Character</h2>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div id="enemy">
+					<h2>Enemies</h2>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div id="defender">
+					<h2>Fight Section</h2>
+					<button id="attackButton" class="btn btn-primary">Attack</button>
+				</div>
+			</div>
+			
+		</div>
 	</div>
 	
-	<div id="newDiv"></div>
-
-	<script src="assets/javascript/game.js"></script>
+</div>
 	
+
+	
+	
+	<script src="assets/javascript/game.js"></script>
 </body>
