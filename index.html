@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
-	
-	<link rel="stylesheet" href="assets/css/style.css">
-	<title>RPG</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<body>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<div class="container">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>RPG</title>
+  </head>
 
-	
-	<div class="row">
-		<div class="col-12">
-		
-			<div class="row">
-				<div>
-					<img src="assets/images/obiwan.jpg" id="character1" class="character">
-					<img src="assets/images/luke.jpg" id="character2" class="character">
-					<img src="assets/images/darthvader.jpg" id="character3" class="character">
-					<img src="assets/images/kylo.jpg" id="character4" class="character">
-				</div>
-			</div>
-		
-			<div class="row">
-				<div id="selected">
-					<h2>Your Character</h2>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div id="enemy">
-					<h2>Enemies</h2>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div id="defender">
-					<h2>Fight Section</h2>
-					<button id="attackButton" class="btn btn-primary">Attack</button>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-	
-</div>
-	
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div id="characters">
+              <h2>Available Characters</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div id="selected">
+              <h2>Your Character</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div id="enemy-section">
+              <h2>Enemies Available to Attack</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div id="fight-section">
+              <h2>Fight Section</h2>
+              <button id="attack-button" class="btn btn-primary">Attack</button>
+            </div>
+          </div>
+          <div class="row">
+            <div id="defender-section">
+              <h2>Defender</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	
-	
-	<script src="assets/javascript/game.js"></script>
-</body>
+    <script src="assets/javascript/game.js"></script>
+  </body>
+</html>

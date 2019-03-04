@@ -1,12 +1,44 @@
-img {
-	width: 100px;
-	margin: 5px 5px 5px 0;
+.character {
+	width: 150px;
+	height: 150px;
+	border-style: solid;
+	float: left;
+	margin: 2px;
 }
 
-#selected img {
-	border: 5px solid green;
+.selected {
+	color: green;
+	background-color: black;
+	width: 150px;
+	height: 150px;
+	border-style: solid;
+	float: left;
+	margin: 2px;
 }
 
-#enemy img {
-	border: 5px solid red;
+.enemies {
+	color: red;
+	background-color: black;
+	width: 150px;
+	height: 150px;
+	border-style: solid;
+	float: left;
+	margin: 2px;
+
+}
+
+.defender {
+	color: yellow;
+	background-color: black;
+	width: 150px;
+	height: 150px;
+	border-style: solid;
+	float: left;
+	margin: 2px;
+}
+
+#selected,
+#enemy-section,
+#defender-section {
+	height: 200px;
 }
