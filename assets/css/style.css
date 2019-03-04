@@ -1,6 +1,9 @@
-.character {
+.character,
+.selected,
+.enemies,
+.defender {
 	width: 150px;
-	height: 150px;
+	height: 90px;
 	border-style: solid;
 	float: left;
 	margin: 2px;
@@ -9,36 +12,22 @@
 .selected {
 	color: green;
 	background-color: black;
-	width: 150px;
-	height: 150px;
-	border-style: solid;
-	float: left;
-	margin: 2px;
 }
 
 .enemies {
 	color: red;
 	background-color: black;
-	width: 150px;
-	height: 150px;
-	border-style: solid;
-	float: left;
-	margin: 2px;
-
 }
 
 .defender {
 	color: yellow;
 	background-color: black;
-	width: 150px;
-	height: 150px;
-	border-style: solid;
-	float: left;
-	margin: 2px;
 }
 
-#selected,
-#enemy-section,
-#defender-section {
-	height: 200px;
+h2 {
+	font-size: 24px;
+}
+
+p {
+	font-size: 14px;
 }

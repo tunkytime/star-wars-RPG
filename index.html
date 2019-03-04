@@ -18,9 +18,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container">	
       <div class="row">
-        <div class="col-8">
+        <div class="col-12">
           <div class="row">
 			<div id="characters" class="text-center">
 				<h2 class="text-left">Available Characters</h2>
@@ -37,10 +37,11 @@
             </div>
           </div>
           <div class="row">
-            <div id="fight-section">
-              <h2>Fight Section</h2>
-              <button id="attack-button" class="btn btn-primary">Attack</button>
-            </div>
+				<div id="fight-section">
+				  <h2>Fight Section</h2>
+				  <button id="attack-button" class="btn btn-primary m-3">Attack</button>
+				  <div id="damage-message"></div>
+				</div>			
           </div>
           <div class="row">
             <div id="defender-section" class="text-center">
@@ -49,9 +50,11 @@
           </div>
         </div>
       </div>
+	  
+		<div id="game-over" class="row">
+		</div>
+	  
     </div>
-	
-	<button class="restart">Restart</button>
 
     <script src="assets/javascript/game.js"></script>
   </body>

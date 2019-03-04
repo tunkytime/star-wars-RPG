@@ -30,7 +30,7 @@ $(document).ready(function () {
 			position: 3,
 		},
 	];
-		
+				
 	var yourPickPosition;
 	var yourPickName;
 	var yourPickAttack;
@@ -42,6 +42,8 @@ $(document).ready(function () {
 	var currentDefenderName;
 	var currentDefenderHealth;
 	var currentDefenderCounter;
+	
+	var defenders = 0;
 			
 	// DYNAMICALLY CREATE CHARACTERS
 	// =================================================================================
@@ -87,6 +89,8 @@ $(document).ready(function () {
 		yourPickPosition = $(this).data("position");	
 		
 		characters.splice(yourPickPosition, 1);
+		
+		console.log(characters);
 				
 	// MOVE OTHER CHARACTERS TO ENEMY SECTION
 	// =================================================================================
@@ -101,42 +105,50 @@ $(document).ready(function () {
 			newDiv.attr("data-position", characters[i].position);
 			newDiv.html("<p>" + characters[i].name + "</p>" + "<p>" + characters[i].hp + "</p>");
 			$("#enemy-section").append(newDiv);
-		}
+		};
 		
 	// SELECT DEFENDER
 	// =================================================================================
-			
-		$(".enemies").on("click", function () {
-			selectedDef = $(this);
-			selectedDef.addClass("defender");
-			selectedDef.attr("data-name", $(this).data("name"));
-			selectedDef.attr("data-hp", $(this).data("hp"));
-			selectedDef.attr("data-attack", $(this).data("attack"));
-			selectedDef.attr("data-counter", $(this).data("counter"));
-			selectedDef.attr("data-position", $(this).data("position"));
-			
-			var name = $(this).data("name");
-			var hp = $(this).data("hp");
-
-			selectedDef.html("<p>" + name + "</p>" + "<p>" + hp + "</p>");
-		
-			$("#defender-section").append(selectedDef);
-			
-			currentDefender = $(this);
-			currentDefenderName = $(this).data("name");
-			currentDefenderHealth = $(this).data("hp");
-			currentDefenderCounter = $(this).data("counter");
-			currentDefenderPosition = $(this).data("position");
+	
+	
+			function resetDefenderCount () {
+				defenders = 0;
+			};
+	
+			$(".enemies").on("click", function () {
+				defenders++;	
+				if(defenders === 1) {
+					selectedDef = $(this);
+					selectedDef.addClass("defender");
+					selectedDef.attr("data-name", $(this).data("name"));
+					selectedDef.attr("data-hp", $(this).data("hp"));
+					selectedDef.attr("data-attack", $(this).data("attack"));
+					selectedDef.attr("data-counter", $(this).data("counter"));
+					selectedDef.attr("data-position", $(this).data("position"));
 								
-			console.log("Health: " + yourPickHealth);
-			console.log("Enemy Health: " + currentDefenderHealth);
+					var name = $(this).data("name");
+					var hp = $(this).data("hp");
+					
+					selectedDef.html("<p>" + name + "</p>" + "<p>" + hp + "</p>");
+				
+					$("#defender-section").append(selectedDef);
+					
+					currentDefender = $(this);
+					currentDefenderName = $(this).data("name");
+					currentDefenderHealth = $(this).data("hp");
+					currentDefenderCounter = $(this).data("counter");
+					currentDefenderPosition = $(this).data("position");
+					
+					console.log("Health: " + yourPickHealth);
+					console.log("Enemy Health: " + currentDefenderHealth);
+
+				} else {
+				alert("you already chose a defender");
+			};
 		});
 
-			$("#attack-button").on("click", function () {					
-				if (characters.length = 0) {
-					alert("You win");
-				} else {
-					
+			$("#attack-button").on("click", function () {
+				if(defenders === 1) {
 					yourPickHealth -= currentDefenderCounter;
 					currentDefenderHealth -= yourPickAttack;
 					
@@ -149,26 +161,40 @@ $(document).ready(function () {
 					console.log("Defender Health = " + currentDefenderHealth);
 					
 					selectedDef.html("<p>" + currentDefenderName + "</p>" + "<p>" + currentDefenderHealth + "</p>");
+					$("#damage-message").html(`
+						<p>You attacked ${currentDefenderName} for ${yourPickAttack} damage points</p>
+						<p>${currentDefenderName} attacked you for ${currentDefenderCounter} damage points</p>
+						
+						
+						`);
 					
 					yourPickAttack = yourPickAttack + yourPickAttack;
 					
 					console.log("=======================");
 					
 					if (currentDefenderHealth <= 0) {
-						characters.splice(currentDefenderPosition, 1);
 						$(".defender").remove();
+						$("#damage-message").html(`
+						
+						<p>You defeated ${currentDefenderName}.</p>					
+						
+						`)
+						resetDefenderCount();
 					};	
 					if (yourPickHealth <= 0) {
 						$(".selected").remove();
-					};
-				};
+						$("#message").text("You lost!");
+						$("#game-over").html(`
+							<button id='restart-button' class='btn btn-secondary btn-block m-1'>You Lose! Play Again?</button>
+							`);
+						
+							$("#restart-button").on("click", function () {
+								location.reload();
+							});
+						}
+				} else {
+					alert("you need to choose a defender");
+				}
 			});
 		});
-		
-	// RELOAD PAGE TO PLAY AGAIN
-	// =================================================================================
-	
-	$(".restart").click(function () {
-		location.reload();
 	});
-});
