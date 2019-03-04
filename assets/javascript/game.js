@@ -2,35 +2,31 @@ $(document).ready(function () {
 
 	var characters = [
 		{
-			name: "kylo",
-			hp: 120,
-			attack: 150,
-			counter: 20,
-			selected: false,
+			name: "ren",
+			hp: 100,
+			attack: 5,
+			counter: 10,
 			position: 0,
 		},
 		{
-			name: "ren",
-			hp: 150,
-			attack: 50,
+			name: "luke",
+			hp: 120,
+			attack: 10,
 			counter: 20,
-			selected: false,
 			position: 1,
 		},
 		{
-			name: "luke",
-			hp: 200,
-			attack: 50,
-			counter: 20,
-			selected: false,
+			name: "kylo",
+			hp: 150,
+			attack: 15,
+			counter: 30,
 			position: 2,
-		},
+		},		
 		{
 			name: "vader",
 			hp: 200,
-			attack: 50,
-			counter: 20,
-			selected: false,
+			attack: 20,
+			counter: 40,
 			position: 3,
 		},
 	];
@@ -39,6 +35,7 @@ $(document).ready(function () {
 	
 	var yourPickPosition;
 	var yourPickName;
+	var originalAttack;
 	var yourPickAttack;
 	var yourPickHealth;
 
@@ -46,9 +43,7 @@ $(document).ready(function () {
 	var currentDefenderName;
 	var currentDefenderHealth;
 	var currentDefenderCounter;
-	
-	console.log(characters);
-		
+			
 	// DYNAMICALLY CREATE CHARACTERS
 	// =================================================================================
 
@@ -58,8 +53,8 @@ $(document).ready(function () {
 		newDiv.attr("data-name", characters[i].name);
 		newDiv.attr("data-hp", characters[i].hp);
 		newDiv.attr("data-attack", characters[i].attack);
+		newDiv.attr("data-original", characters[i].attack);
 		newDiv.attr("data-counter", characters[i].counter);
-		newDiv.attr("data-selected", characters[i].selected);
 		newDiv.attr("data-position", characters[i].position);
 		newDiv.html("<p>" + characters[i].name + "</p>" + "<p>" + characters[i].hp + "</p>");
 		$("#characters").append(newDiv);
@@ -77,8 +72,8 @@ $(document).ready(function () {
 		selectedChar.attr("data-name", $(this).data("name"));
 		selectedChar.attr("data-hp", $(this).data("hp"));
 		selectedChar.attr("data-attack", $(this).data("attack"));
+		selectedChar.attr("data-original", $(this).data("attack"));
 		selectedChar.attr("data-counter", $(this).data("counter"));
-		selectedChar.attr("data-selected", $(this).data("selected"));
 		selectedChar.attr("data-position", $(this).data("position"));
 		$(this).attr("data-selected", "true");
 		selectedChar.text($(this).data("name") + $(this).data("hp"));
@@ -86,13 +81,12 @@ $(document).ready(function () {
 
 		yourPickName = $(this).data("name");
 		yourPickHealth = $(this).data("hp");
+		originalAttack = $(this).data("original")
 		yourPickAttack = $(this).data("attack");	
 		yourPickPosition = $(this).data("position");	
 		
 		characters.splice(yourPickPosition, 1);
-		
-		console.log(characters);
-		
+				
 	// MOVE OTHER CHARACTERS TO ENEMY SECTION
 	// =================================================================================
 
@@ -102,8 +96,8 @@ $(document).ready(function () {
 			newDiv.attr("data-name", characters[i].name);
 			newDiv.attr("data-hp", characters[i].hp);
 			newDiv.attr("data-attack", characters[i].attack);
+			newDiv.attr("data-original", characters[i].attack);
 			newDiv.attr("data-counter", characters[i].counter);
-			newDiv.attr("data-selected", characters[i].selected);
 			newDiv.attr("data-position", characters[i].position);
 			newDiv.html("<p>" + characters[i].name + "</p>" + "<p>" + characters[i].hp + "</p>");
 			$("#enemy-section").append(newDiv);
@@ -118,6 +112,7 @@ $(document).ready(function () {
 			selectedDef.attr("data-name", $(this).data("name"));
 			selectedDef.attr("data-hp", $(this).data("hp"));
 			selectedDef.attr("data-attack", $(this).data("attack"));
+			selectedDef.attr("data-original", $(this).data("attack"));
 			selectedDef.attr("data-counter", $(this).data("counter"));
 			selectedDef.attr("data-position", $(this).data("position"));
 			selectedDef.text($(this).data("name") + $(this).data("hp"));
@@ -128,35 +123,37 @@ $(document).ready(function () {
 			currentDefenderHealth = $(this).data("hp");
 			currentDefenderCounter = $(this).data("counter");
 			currentDefenderPosition = $(this).data("position");
-			
-			console.log(currentDefenderPosition);
-			
-			console.log(characters);
+								
+			console.log("Health: " + yourPickHealth);
+			console.log("Enemy Health: " + currentDefenderHealth);
+		});
 
-			attack();
-
-			function attack() {
-				$("#attack-button").on("click", function () {
+			$("#attack-button").on("click", function () {					
+				if (characters.length = 0) {
+					alert("You win");
+				} else {
+					
+					yourPickHealth -= currentDefenderCounter;
+					currentDefenderHealth -= yourPickAttack;
+					
+					console.log("Counter Attack = " + currentDefenderCounter);
+					console.log("Your Health = " + yourPickHealth);
+					console.log("Attack Power = " + yourPickAttack);
+					console.log("Defender Health = " + currentDefenderHealth);
+					
+					yourPickAttack = yourPickAttack + yourPickAttack;
+					
+					console.log("=======================");
+					
 					if (currentDefenderHealth <= 0) {
 						characters.splice(currentDefenderPosition, 1);
 						$(".defender").remove();
-					} 
-					else if (yourPickHealth <= 0) {
+					};	
+					if (yourPickHealth <= 0) {
 						$(".selected").remove();
-					}
-					else if (characters.length = 0) {
-						alert("You win");
-					} else {
-						console.log("Your Pick Health: " + yourPickHealth);
-						console.log("Your Pick Attack: " + yourPickAttack);
-						console.log("Defender Name: " + currentDefenderName);
-						console.log("Defender Health: " + currentDefenderHealth);
-						console.log("Defender Counter: " + currentDefenderCounter);
-						console.log("Your health after attack: " + (yourPickHealth -= currentDefenderCounter));
-						console.log("Defender health after attack: " + (currentDefenderHealth -= yourPickAttack));
-					}
-				});
-			};
+					};
+				};
+			});
 		});
 	});
 					
@@ -164,5 +161,3 @@ $(document).ready(function () {
 	$(".restart").click(function () {
 		location.reload();
 	});
-	
-});
