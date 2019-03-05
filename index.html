@@ -10,60 +10,53 @@
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Varela+Round" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css" />
   <title>RPG</title>
 </head>
 
 <body>
+
 	<div class="container mt-3">
-	
 		<h1 class="text-left">Star Wars RPG</h1>
-		
-		<div class="row">
-			<div class="col-md-12 hide-this">
+
+		<div id="stDiv" class="row">
+			<div class="col-md-12">
 				<div class="row">
-					<div id="characters" class="text-center">
-						<h2 class="text-left">Choose Your Character</h2>
+					<div id="charDiv" class="text-center">
+						<h2 id="stHeading" class="text-left">Choose Your Character</h2>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<span id="hidden">
-			<div class="row">
-				<div class="col-md-4">
-					<div id="selected" class="text-center">
-						<h2 class="text-left">You Selected:</h2>
-					</div>
-				</div>
-				
-				<div class="col-md-8">
-					<div id="enemy-section" class="text-center">
-						<h2 class="text-left">Enemies Available to Attack:</h2>
-					</div>
-				</div>
-			</div>
-		  
-			<div class="row">
-				<div class="col-md-4">
-					<div id="fight-section class="text-center">
-						<h2>Fight Section</h2>
-						<button id="attack-button" class="btn btn-default m-3">Attack</button>
-						<div id="damage-message"></div>
-					</div>
-				</div>
-						
-				<div class="col-md-8">
-					<div id="defender-section" class="text-center">
-						<h2 class="text-left">Defender:</h2>
-					</div>
-				</div>
-			</div>
 
-		<div id="game-over" class="row"></div>
-		
+		<div class="row">
+			<div class="col-md-4">
+				<div id="selCharDiv" class="text-center">
+				</div>
+			</div>
+			
+			<div class="col-md-8">
+				<div id="enDiv" class="text-center"></div>
+			</div>
+		</div>
+	  
+		<div class="row">
+			<div class="col-md-4">
+				<div id="fight-section class="text-center">
+					<h2>Fight Section</h2>
+					<button id="attack-button" class="btn btn-default m-3">Attack</button>
+					<div id="damage-message"></div>
+				</div>
+			</div>
+					
+			<div class="col-md-8">
+				<div id="defender-section" class="text-center">
+					<h2 class="text-left">Current Defender:</h2>
+				</div>
+			</div>
+		</div>
 	</div>
 
-<script src="assets/javascript/game.js"></script>
+
+<script src="assets/javascript/new-game.js"></script>
 </body>
 </html>
