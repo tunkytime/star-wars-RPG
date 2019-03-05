@@ -2,33 +2,33 @@ $(document).ready(function() {
   var characters = [
     {
       name: "Yoda",
-      hp: 210,
-      attack: 5,
-      counter: 15,
+      hp: 200,
+      attack: 7,
+      counter: 21,
       position: 0,
       imgUrl: "assets/images/yoda.jpg"
     },
     {
       name: "Obi-Wan Kenobi",
-      hp: 150,
-      attack: 4,
-      counter: 8,
+      hp: 135,
+      attack: 16,
+      counter: 7,
       position: 1,
       imgUrl: "assets/images/obiwan.jpg"
     },
     {
       name: "Anakin Skywalker",
-      hp: 180,
-      attack: 7,
-      counter: 20,
+      hp: 140,
+      attack: 14,
+      counter: 8,
       position: 2,
       imgUrl: "assets/images/anakin.jpg"
     },
     {
       name: "Darth Sidious",
-      hp: 200,
-      attack: 12,
-      counter: 25,
+      hp: 190,
+      attack: 8,
+      counter: 19,
       position: 3,
       imgUrl: "assets/images/darthsidious.jpg"
     }
@@ -48,6 +48,7 @@ $(document).ready(function() {
   var currentDefenderImage;
 
   var defenders = 0;
+  var enemyCount = 3;
 
   // DYNAMICALLY CREATE CHARACTERS
   // =================================================================================
@@ -58,21 +59,19 @@ $(document).ready(function() {
     newDiv.attr("data-name", characters[i].name);
     newDiv.attr("data-hp", characters[i].hp);
     newDiv.attr("data-attack", characters[i].attack);
+    newDiv.attr("data-original", characters[i].attack);
     newDiv.attr("data-counter", characters[i].counter);
     newDiv.attr("data-position", characters[i].position);
     newDiv.attr("data-image", characters[i].imgUrl);
-    newDiv.html(
-      `<p>${characters[i].name}</p><img src=${
-        characters[i].imgUrl
-      } class="charImg"><p>${characters[i].hp}</p>`
-    );
+    newDiv.html(`<p>${characters[i].name}</p><img src=${characters[i].imgUrl} class="charImg">`);
     $("#characters").append(newDiv);
   }
 
   // SELECT CHARACTER
-  // =================================================================================
-
+  // ================================================================================= 
+  
   $(".character").on("click", function() {
+	$(".hide-this").remove();
     $("#characters").empty();
     $("#hidden").css("display", "block");
 
@@ -81,6 +80,7 @@ $(document).ready(function() {
     selectedChar.attr("data-name", $(this).data("name"));
     selectedChar.attr("data-hp", $(this).data("hp"));
     selectedChar.attr("data-attack", $(this).data("attack"));
+    selectedChar.attr("data-original", $(this).data("attack"));
     selectedChar.attr("data-counter", $(this).data("counter"));
     selectedChar.attr("data-position", $(this).data("position"));
     selectedChar.attr("data-imageUrl", $(this).data("image"));
@@ -91,7 +91,7 @@ $(document).ready(function() {
     var hp = $(this).data("hp");
 
     selectedChar.html(
-      `<p>${name}</p><img src=${img} class="charImg"><p>${hp}</p>`
+      `<p>${name}</p><img src=${img} class="charImg"><p>Health: ${hp}</p>`
     );
 
     $("#selected").append(selectedChar);
@@ -99,6 +99,7 @@ $(document).ready(function() {
     yourPickName = $(this).data("name");
     yourPickHealth = $(this).data("hp");
     yourPickAttack = $(this).data("attack");
+	originalAttack = $(this).data("attack");
     yourPickPosition = $(this).data("position");
     yourPickImage = $(this).data("image");
 
@@ -121,7 +122,7 @@ $(document).ready(function() {
       newDiv.html(
         `<p>${characters[i].name}</p><img src=${
           characters[i].imgUrl
-        } class="charImg"><p>${characters[i].hp}</p>`
+        } class="charImg"><p>Health: ${characters[i].hp}</p>`
       );
       $("#enemy-section").append(newDiv);
     }
@@ -135,9 +136,9 @@ $(document).ready(function() {
 
     $(".enemies").on("click", function() {
       defenders++;
+	  enemyCount--;
       if (defenders === 1) {
         selectedDef = $(this);
-        console.log(this);
         selectedDef.addClass("defender");
         selectedDef.attr("data-name", $(this).data("name"));
         selectedDef.attr("data-hp", $(this).data("hp"));
@@ -162,7 +163,7 @@ $(document).ready(function() {
         }
 
         selectedDef.html(
-          `<p>${name}</p><img src=${img} class="charImg"><p>${hp}</p>`
+          `<p>${name}</p><img src=${img} class="charImg"><p>Health: ${hp}</p>`
         );
 
         $("#defender-section").append(selectedDef);
@@ -186,57 +187,63 @@ $(document).ready(function() {
           currentDefenderImage = "assets/images/darthsidious.jpg";
         }
 
-        console.log("Health: " + yourPickHealth);
-        console.log("Enemy Health: " + currentDefenderHealth);
       } else {
         alert("Oops! You already chose a defender");
       }
     });
 
     $("#attack-button").on("click", function() {
+     if (defenders > 0) {
       yourPickHealth -= currentDefenderCounter;
       currentDefenderHealth -= yourPickAttack;
 
-      console.log("Counter Attack = " + currentDefenderCounter);
-      console.log("Your Health = " + yourPickHealth);
-
       selectedChar.html(
-        `<p>${yourPickName}</p><img src=${yourPickImage} class="charImg"><p>${yourPickHealth}</p>`
+        `<p>${yourPickName}</p><img src=${yourPickImage} class="charImg"><p>Health: ${yourPickHealth}</p>`
       );
 
-      console.log("Attack Power = " + yourPickAttack);
-      console.log("Defender Health = " + currentDefenderHealth);
-
       selectedDef.html(
-        `<p>${currentDefenderName}</p><img src=${currentDefenderImage} class="charImg"><p>${currentDefenderHealth}</p>`
+        `<p>${currentDefenderName}</p><img src=${currentDefenderImage} class="charImg"><p>Health: ${currentDefenderHealth}</p>`
       );
 
       $("#damage-message").html(
         `<p>You attacked ${currentDefenderName} for ${yourPickAttack} damage points</p><p>${currentDefenderName} attacked you for ${currentDefenderCounter} damage points</p>`
       );
 
-      yourPickAttack = yourPickAttack + yourPickAttack;
+      yourPickAttack = yourPickAttack + originalAttack;
 
-      console.log("=======================");
+	 } else { 
+		alert("Choose a defender");
+	 };
 
       if (currentDefenderHealth <= 0) {
         $(".defender").remove();
-        $("#damage-message").html(
-          `<p>You defeated ${currentDefenderName}.</p>`
+		defenders--;
+		  if (enemyCount === 0 && defenders === 0) {
+			$("#damage-message").html(
+          `<p>You defeated all the enemies.</p>`);
+			$("#game-over").html(
+          `<button id='restart-button' class='btn btn-default btn-block m-1'>Play Again?</button>`
         );
+        $("#restart-button").on("click", function() {
+          location.reload();
+        })} else {
+        $("#damage-message").html(
+          `<p>You defeated ${currentDefenderName}.</p>`)
+		  };
+
         resetDefenderCount();
-      }
+      };
       if (yourPickHealth <= 0) {
         $(".selected").remove();
         $("#message").text("You lost!");
         $("#game-over").html(
-          `<button id ='restart-button' class='btn btn-default btn-block m-1'>You Lose!Play Again ?</button>`
+          `<button id='restart-button' class='btn btn-default btn-block m-1'>You Lose! Play Again?</button>`
         );
-
         $("#restart-button").on("click", function() {
           location.reload();
         });
-      }
+      };
     });
   });
 });
+
