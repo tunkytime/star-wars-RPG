@@ -1,3 +1,5 @@
+$(document).ready(function() {
+	
 // VARIABLES
 var characters = [
 	{
@@ -5,7 +7,7 @@ var characters = [
 		hp: 200,
 		attack: 7,
 		counter: 21,
-		position: 0,
+		index: 0,
 		imgUrl: "assets/images/yoda.jpg"
 	},
 	{
@@ -13,7 +15,7 @@ var characters = [
 		hp: 135,
 		attack: 16,
 		counter: 7,
-		position: 1,
+		index: 1,
 		imgUrl: "assets/images/obiwan.jpg"
 	},
 	{
@@ -21,7 +23,7 @@ var characters = [
 		hp: 140,
 		attack: 14,
 		counter: 8,
-		position: 2,
+		index: 2,
 		imgUrl: "assets/images/anakin.jpg"
 	},
 	{
@@ -29,17 +31,18 @@ var characters = [
 		hp: 190,
 		attack: 8,
 		counter: 19,
-		position: 3,
+		index: 3,
 		imgUrl: "assets/images/darthsidious.jpg"
 	}
 ];
 
 var gameOver = false;
-var enemyCount = characters.length;
-console.log(enemyCount);
+var cSelected = false;
+
+console.log(characters.length);
 
 // WHEN IS THE GAME OVER?
-if (enemyCount === 0) {
+if (characters.length === 0) {
 	gameOver = true;
 } else {
 	for (var i = 0; i < characters.length; i++) {
@@ -48,22 +51,46 @@ if (enemyCount === 0) {
 		charDiv.attr("data-name", characters[i].name);
 		charDiv.attr("data-hp", characters[i].hp);
 		charDiv.attr("data-attack", characters[i].attack);
-		charDiv.attr("data-original", characters[i].attack);
-		charDiv.attr("data-counter", characters[i].counter);
-		charDiv.attr("data-position", characters[i].position);
+		charDiv.attr("data-oAttack", characters[i].attack);
+		charDiv.attr("data-cAttack", characters[i].counter);
+		charDiv.attr("data-index", characters[i].index);
 		charDiv.attr("data-image", characters[i].imgUrl);
-		charDiv.html(`<p>${characters[i].name}</p><img src=${characters[i].imgUrl} class="charImg">`);
-		$("#characters").append(charDiv);
+		
+		charDiv.html(`<p>${characters[i].name}</p><img class="charImg m-3" src=${characters[i].imgUrl} width="150px">`);
+		$("#charDiv").append(charDiv);
+	};
+	
+	$(".character").on("click", function () {
+		if (cSelected) {
+			alert("You already chose a character");
+		} else {
+			var selChar = $(this);
+			var index = selChar.data("index");
+			selChar.addClass("selected");
+			selChar.attr("data-name", selChar.data("name"));
+			selChar.attr("data-hp", selChar.data("hp"));
+			selChar.attr("data-attack", selChar.data("attack"));
+			selChar.attr("data-original", selChar.data("attack"));
+			selChar.attr("data-counter", selChar.data("counter"));
+			selChar.attr("data-index", selChar.data("index"));
+			selChar.attr("data-imageUrl", selChar.data("image"));
+			$("#selCharDiv").append(selChar);
+			selChar.prepend(`<h2 class="text-left">You Selected:</h2>`);
+			$("#stHeading").text("Enemies Available to Attack");
+			$("#enDiv").append($("#charDiv"));
+			cSelected = true;
+			console.log(cSelected);		
+			characters.splice(index, 1);
+			console.log(characters.length);
+		};
+	});
+	
+	
+	
+	
+	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
+
+
+
+});
