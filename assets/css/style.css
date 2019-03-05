@@ -1,33 +1,70 @@
-.character,
-.selected,
-.enemies,
-.defender {
-	width: 150px;
-	height: 90px;
-	border-style: solid;
-	float: left;
-	margin: 2px;
+/* BACKGROUND */
+body {
+	background-image: url("../images/vader-bg.jpg");
+	background-size: cover;
+	font-family: 'Varela Round', sans-serif;
+	color: white;
 }
 
-.selected {
-	color: green;
-	background-color: black;
-}
-
-.enemies {
-	color: red;
-	background-color: black;
-}
-
-.defender {
-	color: yellow;
-	background-color: black;
+/* FONT STYLES */
+h1 {
+	font-family: 'Bungee Inline', sans-serif;
 }
 
 h2 {
 	font-size: 24px;
+	color: yellow;
 }
 
 p {
 	font-size: 14px;
+}
+
+/* SECTION STYLES */
+.character,
+.selected,
+.enemies,
+.defender {
+	border-style: solid;
+	float: left;
+	margin: 2px;
+	background: black;
+}
+
+.selected {
+	color: green;
+}
+
+.enemies {
+	color: red;
+}
+
+.defender {
+	color: yellow;
+}
+
+.charImg {
+	width: 200px;
+	object-fit: contain;
+}
+
+/* BOOTSTRAP OVERRIDES */
+.row {
+	margin-top: 10px;
+}
+
+.btn {
+	background: none;
+	border-color: white;
+	color: white;
+}
+
+.btn:hover {
+	color: red;
+	border-color: red;
+}
+
+/* HIDDEN CONTENT AT START OF GAME */
+#hidden {
+	display: none;
 }
